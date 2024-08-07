@@ -31,7 +31,9 @@ test:
 	@ make -C test random
 
 .PHONY: install
-install: all
+install:
+	@ dune clean
+	@ dune build -p $(THIS)
 	@ dune install -p $(THIS)
 
 .PHONY: uninstall
