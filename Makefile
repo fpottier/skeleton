@@ -42,6 +42,14 @@ uninstall:
 reinstall: uninstall
 	@ make install
 
+.PHONY: pin
+pin:
+	opam pin --yes add $(THIS) .
+
+.PHONY: unpin
+unpin:
+	opam pin --yes remove $(THIS)
+
 .PHONY: show
 show: reinstall
 	@ echo "#require \"skeleton\";;\n#show Skeleton;;" | ocaml
