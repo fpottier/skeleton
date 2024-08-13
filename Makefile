@@ -141,7 +141,7 @@ HEADER   := header.txt
 
 .PHONY: headache
 headache:
-	@ for f in $(shell gfind . -type f -regex ".*\.mli?") ; do \
+	@ for f in $(shell gfind src -type f -regex ".*\.mli?") ; do \
 	  $(HEADACHE) -c headache.config -h $(HEADER) $$f ; \
 	done
 
