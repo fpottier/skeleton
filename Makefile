@@ -2,11 +2,13 @@
 
 # The version number is automatically set to the current date,
 # unless DATE is defined on the command line.
+# An example of the date format is 20241208.
 DATE     := $(shell /bin/date +%Y%m%d)
 
-# This is used in [make release] to search CHANGES.md.
-# Ideally, it should be derived from $(DATE).
-DATE_WITH_SLASHES := $(shell /bin/date +%Y/%m/%d)
+# The date, with slahes, is used in [make release] to search CHANGES.md.
+# An example is 2024/12/08.
+DATE_WITH_SLASHES := $(shell echo "${DATE}" \
+  | sed -e 's|\([0-9][0-9][0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)|\1/\2/\3|')
 
 # The project's name.
 THIS     := skeleton
