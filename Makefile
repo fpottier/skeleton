@@ -104,8 +104,8 @@ view: doc
 
 .PHONY: export
 export: doc
-	ssh yquem.inria.fr rm -rf public_html/$(THIS)/doc
-	scp -r $(DOCDIR) yquem.inria.fr:public_html/$(THIS)/doc
+	ssh yquem.paris.inria.fr rm -rf public_html/$(THIS)/doc
+	scp -r $(DOCDIR) yquem.paris.inria.fr:public_html/$(THIS)/doc
 
 # ------------------------------------------------------------------------------
 
@@ -121,6 +121,7 @@ VERSIONS := \
   5.0.0 \
   5.1.0 \
   5.2.0 \
+  5.3.0 \
 
 .PHONY: versions
 versions:
@@ -142,10 +143,11 @@ handiwork:
 
 HEADACHE := headache
 HEADER   := header.txt
+FIND     := $(shell if command -v gfind >/dev/null ; then echo gfind ; else echo find ; fi)
 
 .PHONY: headache
 headache:
-	@ for f in $(shell gfind src -type f -regex ".*\.mli?") ; do \
+	@ for f in $(shell $(FIND) src -type f -regex ".*\.ml\(i\|y\|l\)?") ; do \
 	  $(HEADACHE) -c headache.config -h $(HEADER) $$f ; \
 	done
 
@@ -183,7 +185,7 @@ release:
 	@ echo "Done."
 	@ echo "If happy, please type:"
 	@ echo "  \"make publish\"   to publish a new opam package"
-	@ echo "  \"make export\"    to upload the documentation to yquem.inria.fr"
+	@ echo "  \"make export\"    to upload the documentation to yquem.paris.inria.fr"
 
 .PHONY: publish
 publish:
