@@ -7,8 +7,7 @@ DATE     := $(shell /bin/date +%Y%m%d)
 
 # The date, with slahes, is used in [make release] to search CHANGES.md.
 # An example is 2024/12/08.
-DATE_WITH_SLASHES := $(shell echo "${DATE}" \
-  | sed -e 's|\([0-9][0-9][0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)|\1/\2/\3|')
+DATESLASH := $(shell /bin/date +%Y/%m/%d)
 
 # The project's name.
 THIS     := skeleton
@@ -166,8 +165,8 @@ release:
 # Check the current package description.
 	@ opam lint
 # Make sure a CHANGES entry with the current date seems to exist.
-	@ if ! grep $(DATE_WITH_SLASHES) CHANGES.md ; then \
-	    echo "Error: CHANGES.md has no entry with date $(DATE_WITH_SLASHES)." ; \
+	@ if ! grep $(DATESLASH) CHANGES.md ; then \
+	    echo "Error: CHANGES.md has no entry with date $(DATESLASH)." ; \
 	    exit 1 ; \
 	  fi
 # Check if everything has been committed.
